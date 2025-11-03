@@ -21,7 +21,8 @@ async function generateProgressBar () {
     const progressPercentage = calculatePercentage() * 100;
     const roundToNearestFive = Math.floor(progressPercentage / 5) * 5;
 
-    const fullBar = '▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒';
+    const fullBar = '\u{2593}\u{2593}\u{2593}\u{2593}\u{2593}\u{2593}\u{2593}\u{2593}\u{2593}\u{2593}\u{2593}\u{2593}\u{2593}\u{2593}\u{2593}\u{2593}\u{2593}\u{2593}\u{2593}\u{2593}';
+
 
     const filledSegments = roundToNearestFive / 5; 
     const unfilledSegments = fullBar.length - filledSegments;
@@ -30,7 +31,7 @@ async function generateProgressBar () {
     let bar; 
 
     if (padEndBound) {
-        bar = padEndBound.padEnd(fullBar.length, '░');
+        bar = padEndBound.padEnd(fullBar.length, '\u{2591}');
     }
 
     return bar;
@@ -42,9 +43,10 @@ export default async function generateProgress() {
     const progressBar = await generateProgressBar();
 
     const progressPercentage = calculatePercentage() * 100;
-    const yearNumber = Math.floor(calculatePercentage()) + 1; 
+    const yearNumber = Math.floor(calculatePercentage()) + 1;
+    const roundedProgress = parseFloat(progressPercentage.toFixed(4));
 
-    const label = `${progressPercentage}% of ${yearNumber}% (year ${yearNumber}) `;
+    const label = `${roundedProgress}% of ${yearNumber}% (year ${yearNumber}) `;
 
     const message = ` ${progressBar} ${label}`; 
 

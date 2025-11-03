@@ -1,11 +1,11 @@
-name:
+name: Post Humiliation percentage every day at Noon EST (UTC - 5)
 
 on:
   push:
     branches:
       - main
   schedule: 
-    - cron: 
+    - cron: '0 17 * * *'
 
 jobs: 
   post_skeet:
