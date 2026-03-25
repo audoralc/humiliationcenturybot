@@ -1,7 +1,7 @@
 import { Temporal, Intl, toTemporalInstant } from "@js-temporal/polyfill";
 Date.prototype.toTemporalInstant = toTemporalInstant;
 
-function calculatePercentage() {
+export function calculatePercentage() {
   // startTime
   const inaugurationDay = Temporal.PlainDate.from("2025-01-20");
   // endTime
@@ -16,6 +16,8 @@ function calculatePercentage() {
   const progressMils = progressDuration.total({ unit: "milliseconds" });
 
   const percentage = (progressMils / totalMils) * 100;
+
+  console.log(typeof percentage.toFixed(2));
 
   return percentage.toFixed(2);
 }
