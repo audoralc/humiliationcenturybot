@@ -1,57 +1,55 @@
+import { Temporal, Intl, toTemporalInstant } from "@js-temporal/polyfill";
+Date.prototype.toTemporalInstant = toTemporalInstant;
 
 function calculatePercentage() {
-    const inaugurationDay = new Date('2025-01-20');
-    const todaysDate = new Date(); 
+  // startTime
+  const inaugurationDay = Temporal.PlainDate.from("2025-01-20");
+  // endTime
+  const endOfCentury = Temporal.PlainDate.from("2125-01-20");
+  // now
+  let todaysDate = Temporal.Now.plainDateISO();
 
-    const milisecondsSinceInaug = todaysDate - inaugurationDay; 
+  const totalDuration = endOfCentury.since(inaugurationDay);
+  const progressDuration = todaysDate.since(inaugurationDay);
 
-    const milisecondsPerDay = 1000 * 60 * 60 * 24; 
+  const totalMils = totalDuration.total({ unit: "milliseconds" });
+  const progressMils = progressDuration.total({ unit: "milliseconds" });
 
-    const daysSinceInaug = Math.floor(milisecondsSinceInaug / milisecondsPerDay) 
+  const percentage = (progressMils / totalMils) * 100;
 
-    const dayPercentageOfCentury = 0.0027; 
-
-    const progress = daysSinceInaug * dayPercentageOfCentury;
-
-    return progress; 
+  return percentage.toFixed(2);
 }
 
+async function generateProgressBar() {
+  const progressPercentage = calculatePercentage();
+  const roundToNearestFive = Math.floor(progressPercentage / 5) * 5;
 
-async function generateProgressBar () {
-    const progressPercentage = calculatePercentage() * 100;
-    const roundToNearestFive = Math.floor(progressPercentage / 5) * 5;
+  const fullBar =
+    "\u{2593}\u{2593}\u{2593}\u{2593}\u{2593}\u{2593}\u{2593}\u{2593}\u{2593}\u{2593}\u{2593}\u{2593}\u{2593}\u{2593}\u{2593}\u{2593}\u{2593}\u{2593}\u{2593}\u{2593}";
 
-    const fullBar = '\u{2593}\u{2593}\u{2593}\u{2593}\u{2593}\u{2593}\u{2593}\u{2593}\u{2593}\u{2593}\u{2593}\u{2593}\u{2593}\u{2593}\u{2593}\u{2593}\u{2593}\u{2593}\u{2593}\u{2593}';
+  const filledSegments = roundToNearestFive / 5;
+  const unfilledSegments = fullBar.length - filledSegments;
+  const padEndBound = fullBar.slice(unfilledSegments - 1);
 
+  let bar;
 
-    const filledSegments = roundToNearestFive / 5; 
-    const unfilledSegments = fullBar.length - filledSegments;
-    const padEndBound = fullBar.slice(unfilledSegments - 1);
+  if (padEndBound) {
+    bar = padEndBound.padEnd(fullBar.length, "\u{2591}");
+  }
 
-    let bar; 
-
-    if (padEndBound) {
-        bar = padEndBound.padEnd(fullBar.length, '\u{2591}');
-    }
-
-    return bar;
-} 
-
-
+  return bar;
+}
 
 export default async function generateProgress() {
-    const progressBar = await generateProgressBar();
+  const progressBar = await generateProgressBar();
 
-    const progressPercentage = calculatePercentage() * 100;
-    const yearNumber = Math.floor(calculatePercentage()) + 1;
-    const roundedProgress = parseFloat(progressPercentage.toFixed(4));
+  const progressPercentage = calculatePercentage();
+  const yearNumber = Math.floor(calculatePercentage()) + 1;
 
-    const label = `${roundedProgress}% of ${yearNumber}% (year ${yearNumber}) `;
+  const label = `${progressPercentage}% (year ${yearNumber})`;
 
-    const message = ` ${progressBar} ${label}`; 
+  const message = ` ${progressBar} ${label}`;
 
-    console.log('message', message);
-
-    /* ##### 75% of 1% (year 1) */
-    return message; 
+  /* ##### 75% of 1% (year 1) */
+  return message;
 }

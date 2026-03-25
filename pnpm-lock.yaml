@@ -11,6 +11,9 @@ importers:
       '@atproto/api':
         specifier: ^0.15.12
         version: 0.15.27
+      '@js-temporal/polyfill':
+        specifier: ^0.5.1
+        version: 0.5.1
       cron:
         specifier: ^4.3.1
         version: 4.3.3
@@ -41,6 +44,10 @@ packages:
   '@atproto/xrpc@0.7.5':
     resolution: {integrity: sha512-MUYNn5d2hv8yVegRL0ccHvTHAVj5JSnW07bkbiaz96UH45lvYNRVwt44z+yYVnb0/mvBzyD3/ZQ55TRGt7fHkA==}
 
+  '@js-temporal/polyfill@0.5.1':
+    resolution: {integrity: sha512-hloP58zRVCRSpgDxmqCWJNlizAlUgJFqG2ypq79DCvyv9tHjRYMDOcPFjzfl/A1/YxDvRCZz8wvZvmapQnKwFQ==}
+    engines: {node: '>=12'}
+
   '@types/luxon@3.7.1':
     resolution: {integrity: sha512-H3iskjFIAn5SlJU7OuxUmTEpebK6TKB8rxZShDslBMZJ5u9S//KM1sbdAisiSrqwLQncVjnpi2OK2J51h+4lsg==}
 
@@ -60,6 +67,9 @@ packages:
 
   iso-datestring-validator@2.2.2:
     resolution: {integrity: sha512-yLEMkBbLZTlVQqOnQ4FiMujR6T4DEcCb1xizmvXS+OxuhwcbtynoosRzdMA69zZCShCNAbi+gJ71FxZBBXx1SA==}
+
+  jsbi@4.3.2:
+    resolution: {integrity: sha512-9fqMSQbhJykSeii05nxKl4m6Eqn2P6rOlYiS+C5Dr/HPIU/7yZxu5qzbs40tgaFORiw2Amd0mirjxatXYMkIew==}
 
   luxon@3.7.2:
     resolution: {integrity: sha512-vtEhXh/gNjI9Yg1u4jX/0YVPMvxzHuGgCm6tC5kZyb08yjGWGnqAjGJvcXbqQR2P3MyMEFnRbpcdFS6PBcLqew==}
@@ -125,6 +135,10 @@ snapshots:
       '@atproto/lexicon': 0.5.1
       zod: 3.25.76
 
+  '@js-temporal/polyfill@0.5.1':
+    dependencies:
+      jsbi: 4.3.2
+
   '@types/luxon@3.7.1': {}
 
   await-lock@2.2.2: {}
@@ -139,6 +153,8 @@ snapshots:
   graphemer@1.4.0: {}
 
   iso-datestring-validator@2.2.2: {}
+
+  jsbi@4.3.2: {}
 
   luxon@3.7.2: {}
 
