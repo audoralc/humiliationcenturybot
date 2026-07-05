@@ -19,20 +19,20 @@ async function agentInit() {
 }
 
 async function postProgress() {
-  // try {
-  // const agent = await agentInit();
+  try {
+  const agent = await agentInit();
 
   const progress = await generateProgress();
 
-  //   await agent.post({
-  //     text: progress,
-  //     createdAt: new Date().toISOString(),
-  //   });
+    await agent.post({
+      text: progress,
+      createdAt: new Date().toISOString(),
+    });
 
-  //   console.log("post posted!!!", progress);
-  // } catch (error) {
-  //   console.error("porblem", error);
-  // }
+    console.log("post posted!!!", progress);
+  } catch (error) {
+    console.error("porblem", error);
+  }
 }
 
 postProgress();
